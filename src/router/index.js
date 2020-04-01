@@ -6,6 +6,9 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 
+/* Router Modules */
+import { merchantRouter, merchantsRouter } from './modules/merchant'
+
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -39,7 +42,13 @@ export const constantRoutes = [
 
   {
     path: '/404',
-    component: () => import('@/views/404'),
+    component: () => import('@/views/error-page/404'),
+    hidden: true
+  },
+
+  {
+    path: '/401',
+    component: () => import('@/views/error-page/401'),
     hidden: true
   },
 
@@ -153,7 +162,8 @@ export const asyncRoutes = [
       }
     ]
   },
-
+  merchantRouter,
+  merchantsRouter,
   {
     path: 'external-link',
     component: Layout,

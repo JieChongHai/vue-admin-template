@@ -53,7 +53,10 @@ const actions = {
       if (roles[0].roleType === 1) {
         accessedRoutes = asyncRoutes || []
       } else {
-        accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+        // roleType 包含 1,2,3,4.分别为管理员(1,2),商户用户-3,门店用户-4
+        // 通过角色类型判断
+        const roleTypes = [roles[0].roleType]
+        accessedRoutes = filterAsyncRoutes(asyncRoutes, roleTypes)
       }
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)

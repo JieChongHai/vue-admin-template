@@ -10,12 +10,16 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'Dashboard',
+  data() {
+    return {
+      date: new Date()
+    }
+  },
   computed: {
     ...mapGetters([
       'name',
       'roles'
-    ]),
-    date: new Date()
+    ])
   }
 }
 </script>

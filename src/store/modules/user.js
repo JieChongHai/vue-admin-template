@@ -8,7 +8,8 @@ const getDefaultState = () => {
     name: '',
     avatar: '',
     roles: [],
-    tmpRoles: []
+    tmpRoles: [],
+    menus: []
   }
 }
 
@@ -32,6 +33,9 @@ const mutations = {
   },
   SET_TMPROLES: (state, tmpRoles) => {
     state.tmpRoles = tmpRoles
+  },
+  SET_MENUS: (state, menus) => {
+    state.menus = menus
   }
 }
 
@@ -42,7 +46,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         console.log(response)
-        const { roles, username } = response
+        const { roles, username, data } = response
 
         // roles must be a non-empty array
         if (!roles || roles.length <= 0) {
@@ -51,6 +55,7 @@ const actions = {
 
         commit('SET_TMPROLES', roles)
         commit('SET_NAME', username)
+        commit('SET_MENUS', data)
         resolve()
       }).catch(error => {
         reject(error)
@@ -108,6 +113,12 @@ const actions = {
     return new Promise(resolve => {
       commit('SET_ROLES', state.tmpRoles)
       resolve(state.tmpRoles)
+    })
+  },
+  // get menus
+  getMenus({ commit, state }) {
+    return new Promise(resolve => {
+      resolve(state.menus)
     })
   }
 }
