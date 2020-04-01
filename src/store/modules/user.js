@@ -1,5 +1,5 @@
-import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { login } from '@/api/user'
+import { getToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
@@ -8,7 +8,7 @@ const getDefaultState = () => {
     name: '',
     avatar: '',
     roles: [],
-    tmpRoles: [],
+    tmpRoles: []
   }
 }
 
@@ -103,7 +103,7 @@ const actions = {
       resolve()
     })
   },
-  
+  // get roles
   getRoles({ commit, state }) {
     return new Promise(resolve => {
       commit('SET_ROLES', state.tmpRoles)

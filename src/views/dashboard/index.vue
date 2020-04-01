@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-text">name: {{ name }}</div>
-    <div class="dashboard-text">roles: <span v-for="(role, index) in roles" :key="index">{{ role }}</span></div>
+    <el-calendar :model="date" />
   </div>
 </template>
 
@@ -14,7 +14,8 @@ export default {
     ...mapGetters([
       'name',
       'roles'
-    ])
+    ]),
+    date: new Date()
   }
 }
 </script>
