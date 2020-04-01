@@ -7,7 +7,8 @@ const getDefaultState = () => {
     token: getToken(),
     name: '',
     avatar: '',
-    roles: []
+    roles: [],
+    tmpRoles: [],
   }
 }
 
@@ -28,6 +29,9 @@ const mutations = {
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
+  },
+  SET_TMPROLES: (state, tmpRoles) => {
+    state.tmpRoles = tmpRoles
   }
 }
 
@@ -45,7 +49,7 @@ const actions = {
           reject('getInfo: roles must be a non-null array!')
         }
 
-        commit('SET_ROLES', roles)
+        commit('SET_TMPROLES', roles)
         commit('SET_NAME', username)
         resolve()
       }).catch(error => {
@@ -81,19 +85,15 @@ const actions = {
   //   })
   // },
 
-  // // user logout
-  // logout({ commit, state }) {
-  //   return new Promise((resolve, reject) => {
-  //     logout(state.token).then(() => {
-  //       removeToken() // must remove  token  first
-  //       resetRouter()
-  //       commit('RESET_STATE')
-  //       resolve()
-  //     }).catch(error => {
-  //       reject(error)
-  //     })
-  //   })
-  // },
+  // user logout
+  logout({ commit }) {
+    return new Promise((resolve) => {
+      removeToken()
+      resetRouter()
+      commit('RESET_STATE')
+      resolve()
+    })
+  },
 
   // remove token
   resetToken({ commit }) {
@@ -101,6 +101,13 @@ const actions = {
       removeToken() // must remove  token  first
       commit('RESET_STATE')
       resolve()
+    })
+  },
+  
+  getRoles({ commit, state }) {
+    return new Promise(resolve => {
+      commit('SET_ROLES', state.tmpRoles)
+      resolve(state.tmpRoles)
     })
   }
 }
