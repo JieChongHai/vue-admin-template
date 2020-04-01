@@ -7,18 +7,3 @@ export function login(data) {
     data
   })
 }
-
-export function getInfo(token) {
-  return request({
-    url: '/attenc/camel/users',
-    method: 'get',
-    params: { token }
-  })
-}
-
-export function logout() {
-  return request({
-    url: '/vue-admin-template/user/logout',
-    method: 'post'
-  })
-}

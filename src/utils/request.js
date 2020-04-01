@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
-import { getAccessToken, getToken, setAccessToken } from '@/utils/auth'
+import { getToken, setToken } from '@/utils/auth'
 
 // create an axios instance
 const service = axios.create({
@@ -19,9 +19,8 @@ service.interceptors.request.use(
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
-      config.headers['X-Token'] = getToken()
+      config.headers['Authorization'] = 'Bearer ' + getToken()
     }
-    config.headers['Authorization'] = 'Bearer ' + getAccessToken()
     return config
   },
   error => {
@@ -44,7 +43,7 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
-    setAccessToken(response.headers['access_token'])
+    setToken(response.headers['access_token'])
     const res = response.data
 
     // if the custom code is not 20000, it is judged as an error.
