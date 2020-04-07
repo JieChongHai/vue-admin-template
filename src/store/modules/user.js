@@ -9,7 +9,9 @@ const getDefaultState = () => {
     avatar: '',
     roles: [],
     tmpRoles: [],
-    menus: []
+    menus: [],
+    intMerCode: '',
+    intStoreCode: ''
   }
 }
 
@@ -36,6 +38,12 @@ const mutations = {
   },
   SET_MENUS: (state, menus) => {
     state.menus = menus
+  },
+  SET_INTMERCODE: (state, intMerCode) => {
+    state.intMerCode = intMerCode
+  },
+  SET_INTSTORECODE: (state, intStoreCode) => {
+    state.intStoreCode = intStoreCode
   }
 }
 
@@ -46,7 +54,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         console.log(response)
-        const { roles, username, data } = response
+        const { roles, username, data, intMerCode, intStoreCode } = response
 
         // roles must be a non-empty array
         if (!roles || roles.length <= 0) {
@@ -56,6 +64,8 @@ const actions = {
         commit('SET_TMPROLES', roles)
         commit('SET_NAME', username)
         commit('SET_MENUS', data)
+        commit('SET_INTMERCODE', intMerCode)
+        commit('SET_INTSTORECODE', intStoreCode)
         resolve()
       }).catch(error => {
         reject(error)

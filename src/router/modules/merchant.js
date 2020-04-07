@@ -28,6 +28,12 @@ export const merchantRouter = {
       component: () => import('@/views/error-page/401'),
       name: 'remove',
       meta: { title: 'Merchant remove', roles: [1, 2, 3] }
+    },
+    {
+      path: 'detail',
+      component: () => import('@/views/merchant/detail'),
+      name: 'detail',
+      meta: { title: 'Merchant Detail', roles: [1, 2, 3] }
     }
   ]
 }
@@ -40,8 +46,8 @@ export const merchantsRouter = {
   children: [
     {
       path: 'list',
-      component: () => import('@/views/error-page/401'),
-      name: 'list',
+      component: () => import('@/views/merchant/list'),
+      name: 'List',
       meta: { title: 'Merchant List', icon: 'merchant', roles: [1, 2] }
     }
   ]
