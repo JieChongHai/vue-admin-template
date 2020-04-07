@@ -6,8 +6,16 @@
         <img :src="merchantImg" width="444" height="528" alt="商家的详情">
       </el-col>
       <el-col>
-        <label>商户号</label>
-        <h6>{{ common.intMerCode }}</h6>
+        <label>商户号: </label>
+        <h6> {{ intMerCode }} </h6>
+        <label>商户名: </label>
+        <h6> {{ common.merName }} </h6>
+        <label>业务区域: </label>
+        <h6> {{ businessArea }} </h6>
+        <label>交易币种: </label>
+        <h6> {{ currency }} </h6>
+        <label>经营用户: </label>
+        <h6> {{ name }} </h6>
       </el-col>
     </div>
   </div>
@@ -48,11 +56,10 @@ export default {
   methods: {
     fetchDetail(intMerCode) {
       fetchDetail(intMerCode).then(response => {
-        this.common = response.common
-        debugger
-        this.createAt = response.createAt
+        const { common, createAt } = response
+        this.common = common
+        this.createAt = createAt
       })
-      console.log(this.merchant)
     }
   }
 }

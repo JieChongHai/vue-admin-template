@@ -57,12 +57,10 @@
 <script>
 import { fetchList, remove } from '@/api/merchant'
 import Pagination from '@/components/Pagination'
-import waves from '@/directive/waves'
 
 export default {
   name: 'Merchants',
   components: { Pagination },
-  directive: { waves },
   data() {
     return {
       listLoading: true,
