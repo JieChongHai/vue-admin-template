@@ -50,6 +50,7 @@ export default {
     }
   },
   created() {
+    console.log(this.$route)
     this.intMerCode = store.getters.intMerCode
     fetchDetail(this.intMerCode)
   },

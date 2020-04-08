@@ -8,77 +8,90 @@
         Search
       </el-button>
     </div>
+    <!-- 表格 -->
     <el-table
+      :key="tableKey"
       v-loading="listLoading"
-      :data="data"
-      stripe
+      :data="list"
+      border
       fit
       highlight-current-row
-      :row-class-name="tableRowClassName"
-      style="width: 100%"
+      style="width: 100%;"
     >
-      <el-table-column label="商户号" prop="common.intMerCode" align="center" width="150">
+      <el-table-column label="商户号" align="center">
         <template slot-scope="{row}">
           <span>{{ row.common.intMerCode }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="商户名称" prop="common.merName" align="center" width="200">
+      <el-table-column label="商户名称" align="center">
         <template slot-scope="{row}">
           <span>{{ row.common.merName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="业务区域" prop="common.businessArea" align="center" width="150">
+      <el-table-column label="业务区域" align="center">
         <template slot-scope="{row}">
           <span>{{ row.common.businessArea }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="状态" prop="common.status" align="center" width="100">
+      <el-table-column label="状态"  align="center">
         <template slot-scope="{row}">
           <span>{{ row.common.status }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" prop="createdAt" align="center" width="300">
+      <el-table-column label="创建时间" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.createdAt }}</span>
+          <span>{{ row.createdAt | parseStringToTime('{y}-{m}-{d} {h}:{i}')}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Actions" align="center" width="230" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" class-name="small-padding">
         <template slot-scope="{row,$index}">
+          <el-button v-if="row.common.status==='normal'" size="mini" type="success" @click="handleDetail(row,$index)">
+            详情
+          </el-button>
+          <el-button v-if="row.common.status==='normal'" size="mini" type="primary" @click="handleEdit(row,$index)">
+            编辑
+          </el-button>
           <el-button v-if="row.common.status==='normal'" size="mini" type="danger" @click="handleDelete(row,$index)">
-            Delete
+            删除
           </el-button>
         </template>
       </el-table-column>
     </el-table>
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :page-size.sync="count" @pagination="getList" />
+    <!-- 分页器 -->
+    <pagination 
+      v-show="total>0" 
+      :total="total" 
+      :page.sync="listQuery.page" 
+      :limit.sync="listQuery.size"
+      :page-sizes="[2, 5, 10]"
+      @pagination="getList" />
   </div>
 </template>
 
 <script>
 import { fetchList, remove } from '@/api/merchant'
 import Pagination from '@/components/Pagination'
+import { parseStringToTime } from '@/utils'
 
 export default {
   name: 'Merchants',
   components: { Pagination },
   data() {
     return {
+      tableKey: 0,
       listLoading: true,
-      data: [],
-      page: 1,
+      list: null,
       total: 0,
-      count: 0,
-      size: 10,
+      valueDate: undefined,
       listQuery: {
         page: 1,
-        size: 10,
+        size: 2,
         intMerCode: undefined,
         merName: undefined,
         startTime: undefined,
         endTime: undefined,
-        status: undefined
+        status: undefined,
       },
-      valueDate: undefined
     }
   },
   created() {
@@ -88,15 +101,10 @@ export default {
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
-        this.data = response.data
-        this.total = response.total
-        this.size = response.size
-        this.page = response.page
-        this.count = response.count
-        // Just to simulate the time of the request
-        setTimeout(() => {
-          this.listLoading = false
-        }, 1.5 * 1000)
+        const { data, total} = response
+        this.list = data
+        this.total = total
+        setTimeout(() => { this.listLoading = false })
       })
     },
     tableRowClassName({ row, rowIndex }) {
@@ -105,30 +113,29 @@ export default {
       }
       return 'yellow-row'
     },
+    handleDetail(row, index) {
+      this.$router.push({ path: `/merchant/detail/${row.common.intMerCode}`})
+    },
+    handleEdit(row,$index) {
+      this.$router.push({ path: '/merchant/update', params: { intMerCode: row.common.intMerCode }})
+    },
     handleDelete(row, index) {
-      this.$notify({
-        title: 'Success',
-        message: 'Delete Successfully',
-        type: 'success',
-        duration: 2000
+      remove(row.common.intMerCode).then(res => {
+        this.$notify({
+          title: '成功',
+          message: '删除商户成功',
+          type: 'success',
+          duration: 2000
+        })
+        this.getList()
       })
-      this.list.splice(index, 1)
-      remove(row.common.intMerCode)
     },
     handleFilter() {
-      this.listQuery.page = 1
-      if (this.valueDate.length) {
-        let m, d
-        m = this.valueDate[0].getMonth() < 10 ? '0' + (this.valueDate[0].getMonth() + 1) : this.valueDate[0].getMonth() + 1
-        d = this.valueDate[0].getDate() < 10 ? '0' + this.valueDate[0].getDate() : this.valueDate[0].getDate
-        this.listQuery.startTime = this.valueDate[0].getFullYear() + '-' + m + '-' + d + 'T00:00:00-08:00'
-        m = this.valueDate[1].getMonth() < 10 ? '0' + (this.valueDate[1].getMonth() + 1) : this.valueDate[1].getMonth() + 1
-        d = this.valueDate[1].getDate() < 10 ? '0' + this.valueDate[1].getDate() : this.valueDate[1].getDate
-        this.listQuery.endTime = this.valueDate[0].getFullYear() + '-' + m + '-' + d + 'T00:00:00-08:00'
-        console.log(this.valueDate[0].toString())
-      }
       this.getList()
-    }
+    },
+  },
+  filters: {
+    parseStringToTime,
   }
 }
 </script>
