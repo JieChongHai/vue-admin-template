@@ -33,14 +33,14 @@
           <span>{{ row.common.businessArea }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="状态"  align="center">
+      <el-table-column label="状态" align="center">
         <template slot-scope="{row}">
           <span>{{ row.common.status }}</span>
         </template>
       </el-table-column>
       <el-table-column label="创建时间" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.createdAt | parseStringToTime('{y}-{m}-{d} {h}:{i}')}}</span>
+          <span>{{ row.createdAt | parseStringToTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding">
@@ -58,10 +58,10 @@
       </el-table-column>
     </el-table>
     <!-- 分页器 -->
-    <pagination 
-      v-show="total>0" 
-      :total="total" 
-      :page.sync="listQuery.page" 
+    <pagination
+      v-show="total>0"
+      :total="total"
+      :page.sync="listQuery.page"
       :limit.sync="listQuery.size"
       :page-sizes="[2, 5, 10]"
       @pagination="getList" />
@@ -76,6 +76,9 @@ import { parseStringToTime } from '@/utils'
 export default {
   name: 'Merchants',
   components: { Pagination },
+  filters: {
+    parseStringToTime
+  },
   data() {
     return {
       tableKey: 0,
@@ -90,8 +93,8 @@ export default {
         merName: undefined,
         startTime: undefined,
         endTime: undefined,
-        status: undefined,
-      },
+        status: undefined
+      }
     }
   },
   created() {
@@ -101,7 +104,7 @@ export default {
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
-        const { data, total} = response
+        const { data, total } = response
         this.list = data
         this.total = total
         setTimeout(() => { this.listLoading = false })
@@ -114,9 +117,9 @@ export default {
       return 'yellow-row'
     },
     handleDetail(row, index) {
-      this.$router.push({ path: `/merchant/detail/${row.common.intMerCode}`})
+      this.$router.push({ path: `/merchant/detail/${row.common.intMerCode}` })
     },
-    handleEdit(row,$index) {
+    handleEdit(row, $index) {
       this.$router.push({ path: '/merchant/update', params: { intMerCode: row.common.intMerCode }})
     },
     handleDelete(row, index) {
@@ -132,10 +135,7 @@ export default {
     },
     handleFilter() {
       this.getList()
-    },
-  },
-  filters: {
-    parseStringToTime,
+    }
   }
 }
 </script>

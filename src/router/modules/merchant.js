@@ -7,13 +7,13 @@ export const merchantRouter = {
   redirect: 'noRedirect',
   name: '商户',
   meta: {
-    title: 'merchant',
+    title: 'Merchant Manage',
     icon: 'merchant-manage'
   },
   children: [
     {
       path: 'create',
-      component: () => import('@/views/error-page/401'),
+      component: () => import('@/views/merchant/create'),
       name: 'create',
       meta: { title: 'Merchant Create', roles: [1, 2, 3] }
     },

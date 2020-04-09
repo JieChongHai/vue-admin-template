@@ -8,6 +8,11 @@ import Layout from '@/layout'
 
 /* Router Modules */
 import { merchantRouter, merchantsRouter } from './modules/merchant'
+import { storeRouter, storesRouter } from './modules/store'
+import { menusRouter } from './modules/menu'
+import { jobsRouter } from './modules/audit'
+import { roleRouter, rolesRouter } from './modules/role'
+import { userRouter } from './modules/user'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -164,6 +169,13 @@ export const asyncRoutes = [
   },
   merchantRouter,
   merchantsRouter,
+  storeRouter,
+  storesRouter,
+  menusRouter,
+  jobsRouter,
+  userRouter,
+  rolesRouter,
+  roleRouter,
   {
     path: 'external-link',
     component: Layout,
