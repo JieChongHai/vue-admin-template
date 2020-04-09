@@ -105,3 +105,7 @@ export function param2Obj(url) {
       '"}'
   )
 }
+
+export function parseStringToTime(str, cFormat) {
+  return parseTime(Date.parse(str), cFormat)
+}
