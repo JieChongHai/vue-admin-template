@@ -49,6 +49,27 @@ export const merchantsRouter = {
       component: () => import('@/views/merchant/list'),
       name: 'List',
       meta: { title: 'Merchant List', icon: 'merchant', roles: [1, 2] }
+    },
+    {
+      hidden: true,
+      path: 'update',
+      component: () => import('@/views/error-page/401'),
+      name: 'update',
+      meta: { title: 'Merchant Update', roles: [1, 2, 3] }
+    },
+    {
+      hidden: true,
+      path: 'remove',
+      component: () => import('@/views/error-page/401'),
+      name: 'remove',
+      meta: { title: 'Merchant remove', roles: [1, 2, 3] }
+    },
+    {
+      hidden: true,
+      path: 'detail',
+      component: () => import('@/views/merchant/detail'),
+      name: 'detail',
+      meta: { title: 'Merchant Detail', roles: [1, 2, 3] }
     }
   ]
 }

@@ -34,6 +34,13 @@ export const jobsRouter = {
       component: () => import('@/views/error-page/401'),
       name: 'done',
       meta: { title: 'Done Job', roles: [1, 2, 3] }
+    },
+    {
+      hidden: true,
+      path: 'detail',
+      component: () => import('@/views/error-page/401'),
+      name: 'done',
+      meta: { title: 'Done Job', roles: [1, 2, 3] }
     }
   ]
 }
