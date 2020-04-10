@@ -13,7 +13,7 @@ export const userRouter = {
   children: [
     {
       path: 'create',
-      component: () => import('@/views/error-page/401'),
+      component: () => import('@/views/user/create'),
       name: 'create',
       meta: { title: 'User Create', roles: [1, 2, 3, 4] }
     },
@@ -50,7 +50,7 @@ export const usersRouter = {
   children: [
     {
       path: 'list',
-      component: () => import('@/views/error-page/401'),
+      component: () => import('@/views/user/list'),
       name: 'List',
       meta: { title: 'User List', roles: [1, 2, 3] }
     },

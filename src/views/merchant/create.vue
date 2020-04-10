@@ -1,12 +1,12 @@
 <template>
   <div class="app-container">
     <router-view :key="key" />
-    <el-form ref="merchant" :model="merchant" label-width="120px">
-      <el-form-item label="商户号" placeholder="长度六位,可忽略" :span="11">
-        <el-input v-model="merchant.common.intMerCode" />
+    <el-form ref="merchant" :model="merchant" label-width="120px" class="with">
+      <el-form-item label="商户号">
+        <el-input v-model="merchant.common.intMerCode" placeholder="长度六位" />
       </el-form-item>
-      <el-form-item label="商户名" :span="11">
-        <el-input v-model="merchant.common.merName" />
+      <el-form-item label="商户名">
+        <el-input v-model="merchant.common.merName" placeholder="大商户" />
       </el-form-item>
       <el-form-item label="业务区域">
         <el-select v-model="merchant.common.businessArea" placeholder="please select your zone">
@@ -28,19 +28,19 @@
       <el-form-item label="联系方式">
         <el-col>联系人:</el-col>
         <el-col :span="11">
-          <el-input v-model="merchant.common.contact.name" />
+          <el-input v-model="merchant.common.contact.name" placeholder="一般是管理人" />
         </el-col>
         <el-col>联系号码:</el-col>
         <el-col :span="11">
-          <el-input v-model="merchant.common.contact.phoneNumber" label="联系号码" />
+          <el-input v-model="merchant.common.contact.phoneNumber" label="联系号码" placeholder="12306" />
         </el-col>
         <el-col>邮箱:</el-col>
         <el-col :span="11">
-          <el-input v-model="merchant.common.contact.email" label="邮箱" />
+          <el-input v-model="merchant.common.contact.email" label="邮箱" placeholder="cc@gmail.com" />
         </el-col>
         <el-col>地址:</el-col>
         <el-col :span="11">
-          <el-input v-model="merchant.common.contact.address" label="地址" />
+          <el-input v-model="merchant.common.contact.address" label="地址" placeholder="快说,在哪?" />
         </el-col>
       </el-form-item>
       <el-form-item label="是否开通门店审核">
@@ -67,7 +67,7 @@
       </el-form-item>
       <el-form-item label="用户角色">
         <el-select v-model="user.roleId" placeholder="用户角色">
-          <el-option label="商户用户" value="4" />
+          <el-option label="商户用户" value="3" />
         </el-select>
       </el-form-item>
       <el-form-item label="密码" prop="pass">
@@ -165,8 +165,8 @@ export default {
 </script>
 
 <style scoped>
-  .line{
-    text-align: center;
+  .with{
+    width:800px;
   }
 </style>
 

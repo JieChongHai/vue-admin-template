@@ -3,7 +3,10 @@
     <div class="filter-container">
       <el-date-picker v-model="valueDate" type="daterange" range-separator="~" start-placeholder="开始日期" end-placeholder="结束日期" />
       <el-input v-model="listQuery.intMerCode" placeholder="商户号" prefix-icon="el-icon-search" style="width: 200px;" class="filter-item" clearable />
-      <el-input v-model="listQuery.merName" placeholder="商户名称" prefix-icon="el-icon-search" style="width: 200px;" class="filter-item" clearable />
+      <el-input v-model="listQuery.intStoreCode" placeholder="门店号" prefix-icon="el-icon-search" style="width: 200px;" class="filter-item" clearable />
+      <el-input v-model="listQuery.currency" placeholder="币种" prefix-icon="el-icon-search" style="width: 200px;" class="filter-item" clearable />
+      <el-input v-model="listQuery.storeName" placeholder="门店名称" prefix-icon="el-icon-search" style="width: 200px;" class="filter-item" clearable />
+      <el-input v-model="listQuery.storeNum" placeholder="外部门店号" prefix-icon="el-icon-search" style="width: 200px;" class="filter-item" clearable />
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
         Search
       </el-button>
@@ -28,9 +31,14 @@
           <span>{{ row.common.merName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="业务区域" align="center">
+      <el-table-column label="门店号" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.common.businessArea }}</span>
+          <span>{{ row.common.intStoreCode }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="门店名称" align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.common.storeName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="创建时间" align="center">
@@ -64,12 +72,12 @@
 </template>
 
 <script>
-import { fetchList, remove } from '@/api/merchant'
+import { fetchList, remove } from '@/api/store'
 import Pagination from '@/components/Pagination'
 import { parseStringToTime } from '@/utils'
 
 export default {
-  name: 'Merchants',
+  name: 'Stores',
   components: { Pagination },
   filters: {
     parseStringToTime
@@ -85,7 +93,10 @@ export default {
         page: 1,
         size: 2,
         intMerCode: undefined,
-        merName: undefined,
+        intStoreCode: undefined,
+        storeNum: undefined,
+        storeName: undefined,
+        currency: undefined,
         startTime: undefined,
         endTime: undefined,
         status: undefined
@@ -112,17 +123,16 @@ export default {
       return 'yellow-row'
     },
     handleDetail(row, index) {
-      console.log(row.common.intMerCode)
-      this.$router.push({ path: `/merchants/detail/${row.common.intMerCode}` })
+      this.$router.push({ path: `/stores/detail/${row.common.intMerCode}` })
     },
     handleEdit(row, $index) {
-      this.$router.push({ path: `/merchants/update/${row.common.intMerCode}` })
+      this.$router.push({ path: '/stores/update', params: { intMerCode: row.common.intMerCode }})
     },
     handleDelete(row, index) {
       remove(row.common.intMerCode).then(res => {
         this.$notify({
           title: '成功',
-          message: '删除商户成功',
+          message: '删除门店成功',
           type: 'success',
           duration: 2000
         })

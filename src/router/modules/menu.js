@@ -8,7 +8,7 @@ export const menusRouter = {
   children: [
     {
       path: 'list',
-      component: () => import('@/views/error-page/401'),
+      component: () => import('@/views/menu/list'),
       name: 'List',
       meta: { title: 'Menu List', icon: 'menu', roles: [1, 2] }
     }

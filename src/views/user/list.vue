@@ -3,7 +3,13 @@
     <div class="filter-container">
       <el-date-picker v-model="valueDate" type="daterange" range-separator="~" start-placeholder="开始日期" end-placeholder="结束日期" />
       <el-input v-model="listQuery.intMerCode" placeholder="商户号" prefix-icon="el-icon-search" style="width: 200px;" class="filter-item" clearable />
-      <el-input v-model="listQuery.merName" placeholder="商户名称" prefix-icon="el-icon-search" style="width: 200px;" class="filter-item" clearable />
+      <el-input v-model="listQuery.intStoreCode" placeholder="门店号" prefix-icon="el-icon-search" style="width: 200px;" class="filter-item" clearable />
+      <el-input v-model="listQuery.username" placeholder="用户名" prefix-icon="el-icon-search" style="width: 200px;" class="filter-item" clearable />
+      <el-select v-model="listQuery.userType" placeholder="用户角色">
+        <el-option label="管理员" value="genAdmin" />
+        <el-option label="商户用户" value="merchant" />
+        <el-option label="门店用户" value="store" />
+      </el-select>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
         Search
       </el-button>
@@ -18,35 +24,40 @@
       highlight-current-row
       style="width: 100%;"
     >
+      <el-table-column label="用户名" align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.username }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="邮箱" align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.email }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="商户号" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.common.intMerCode }}</span>
+          <span>{{ row.intMerCode }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="商户名称" align="center">
+      <el-table-column label="门店号" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.common.merName }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="业务区域" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.common.businessArea }}</span>
+          <span>{{ row.intStoreCode }}</span>
         </template>
       </el-table-column>
       <el-table-column label="创建时间" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.createdAt | parseStringToTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ row.createTime | parseStringToTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding">
         <template slot-scope="{row,$index}">
-          <el-button v-if="row.common.status==='normal'" size="mini" type="success" @click="handleDetail(row,$index)">
+          <el-button size="mini" type="success" @click="handleDetail(row,$index)">
             详情
           </el-button>
-          <el-button v-if="row.common.status==='normal'" size="mini" type="primary" @click="handleEdit(row,$index)">
+          <el-button size="mini" type="primary" @click="handleEdit(row,$index)">
             编辑
           </el-button>
-          <el-button v-if="row.common.status==='normal'" size="mini" type="danger" @click="handleDelete(row,$index)">
+          <el-button size="mini" type="danger" @click="handleDelete(row,$index)">
             删除
           </el-button>
         </template>
@@ -64,7 +75,7 @@
 </template>
 
 <script>
-import { fetchList, remove } from '@/api/merchant'
+import { fetchList, remove, detail } from '@/api/user'
 import Pagination from '@/components/Pagination'
 import { parseStringToTime } from '@/utils'
 
@@ -84,12 +95,15 @@ export default {
       listQuery: {
         page: 1,
         size: 2,
+        username: undefined,
         intMerCode: undefined,
-        merName: undefined,
+        intStoreCode: undefined,
         startTime: undefined,
         endTime: undefined,
+        userType: undefined,
         status: undefined
-      }
+      },
+      user: undefined
     }
   },
   created() {
@@ -111,27 +125,33 @@ export default {
       }
       return 'yellow-row'
     },
-    handleDetail(row, index) {
-      console.log(row.common.intMerCode)
-      this.$router.push({ path: `/merchants/detail/${row.common.intMerCode}` })
-    },
-    handleEdit(row, $index) {
-      this.$router.push({ path: `/merchants/update/${row.common.intMerCode}` })
+    handleFilter() {
+      this.listQuery.page = 1
+      this.getList()
     },
     handleDelete(row, index) {
-      remove(row.common.intMerCode).then(res => {
+      remove(row.username).then(res => {
         this.$notify({
           title: '成功',
-          message: '删除商户成功',
+          message: '删除门店成功',
           type: 'success',
           duration: 2000
         })
         this.getList()
       })
     },
-    handleFilter() {
-      this.listQuery.page = 1
-      this.getList()
+    handleDetail(row, index) {
+      detail(row.username).then(res => {
+        this.user = res
+      })
+    },
+    handleEdit(row, index) {
+      this.$notify({
+        title: '成功',
+        message: '???',
+        type: 'success',
+        duration: 2000
+      })
     }
   }
 }

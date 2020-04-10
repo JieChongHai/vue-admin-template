@@ -13,7 +13,7 @@ export const storeRouter = {
   children: [
     {
       path: 'create',
-      component: () => import('@/views/error-page/401'),
+      component: () => import('@/views/store/create'),
       name: 'create',
       meta: { title: 'Store Create', roles: [1, 2, 3, 4] }
     },
@@ -46,7 +46,7 @@ export const storesRouter = {
   children: [
     {
       path: 'list',
-      component: () => import('@/views/error-page/401'),
+      component: () => import('@/views/store/list'),
       name: 'List',
       meta: { title: 'Store List', icon: 'store', roles: [1, 2, 3] }
     },

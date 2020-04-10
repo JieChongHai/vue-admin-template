@@ -56,52 +56,52 @@
 </template>
 
 <script>
-import merchantImg from "@/assets/merchant/merchant.png";
-import store from "@/store";
-import { fetchDetail } from "@/api/merchant";
+import merchantImg from '@/assets/merchant/merchant.png'
+import store from '@/store'
+import { fetchDetail } from '@/api/merchant'
 
 export default {
-  name: "Merchant",
+  name: 'Merchant',
   data() {
     return {
       merchantImg: merchantImg,
       intMerCode: null,
       common: {
-        intMerCode: "",
-        merName: "",
-        businessArea: "",
-        currency: "",
+        intMerCode: '',
+        merName: '',
+        businessArea: '',
+        currency: '',
         contact: {
-          name: "",
-          phoneNumber: "",
-          email: ""
+          name: '',
+          phoneNumber: '',
+          email: ''
         },
-        status: "",
+        status: '',
         auditConfigs: []
       },
       createAt: undefined,
       dialogVisible: false
-    };
+    }
   },
   created() {
-    console.log(this.$route);
-    this.intMerCode = this.$route.params.intMerCode || store.getters.intMerCode;
-    this.getDetail(this.intMerCode);
+    console.log(this.$route)
+    this.intMerCode = this.$route.params.intMerCode || store.getters.intMerCode
+    this.getDetail(this.intMerCode)
   },
   methods: {
     getDetail(intMerCode) {
-      this.listLoading = true;
+      this.listLoading = true
       fetchDetail(intMerCode)
         .then(response => {
-          console.log(response);
-          const { common, createAt } = response;
-          this.common = common;
-          this.createAt = createAt;
+          console.log(response)
+          const { common, createAt } = response
+          this.common = common
+          this.createAt = createAt
         })
-        .finally(() => (this.listLoading = false));
+        .finally(() => (this.listLoading = false))
     }
   }
-};
+}
 </script>
 
 <style scoped>
