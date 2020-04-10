@@ -117,10 +117,11 @@ export default {
       return 'yellow-row'
     },
     handleDetail(row, index) {
-      this.$router.push({ path: `/merchant/detail/${row.common.intMerCode}` })
+      console.log(row.common.intMerCode)
+      this.$router.push({ path: `/merchants/detail/${row.common.intMerCode}` })
     },
     handleEdit(row, $index) {
-      this.$router.push({ path: '/merchant/update', params: { intMerCode: row.common.intMerCode }})
+      this.$router.push({ path: `/merchants/update/${row.common.intMerCode}` })
     },
     handleDelete(row, index) {
       remove(row.common.intMerCode).then(res => {
