@@ -56,6 +56,13 @@ export const jobsRouter = {
       component: () => import('@/views/audit/index'),
       name: 'Jobs',
       meta: { title: 'Jobs', icon: 'jobs' }
+    },
+    {
+      hidden: true,
+      path: 'detail/:id(\\d+)',
+      name: 'JobDetail',
+      component: () => import('@/views/audit/components/auditJobDetail'),
+      meta: { title: 'Job Detail', roles: [1, 2, 3] }
     }
   ]
 }

@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import { create } from '@/api/store'
+import { create, submitted } from '@/api/store'
 import { fetchList } from '@/api/merchant'
 import storeData from '@/store'
 export default {
@@ -113,7 +113,8 @@ export default {
       checkPassword: '',
       merchants: [],
       intMerCodes: [],
-      size: 10
+      size: 10,
+      token: ''
     }
   },
   computed: {
@@ -122,7 +123,7 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
+    async onSubmit() {
       if (this.store.common.intMerCode === '') {
         this.store.common.intMerCode = storeData.intMerCode
       }
@@ -132,7 +133,10 @@ export default {
         store: this.store,
         users: this.users
       }
-      create(data)
+      this.token = await create(data)
+      if (this.token !== '') {
+        submitted(this.token)
+      }
       this.$message('submit!')
     },
     onCancel() {

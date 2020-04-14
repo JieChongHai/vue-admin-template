@@ -23,7 +23,7 @@ export function enrollment(data) {
   })
 }
 // 修改审核任务状态
-export function submit(token) {
+export function submitted(token) {
   return request({
     url: '/attenc/camel/audit/submission/' + token,
     method: 'post'

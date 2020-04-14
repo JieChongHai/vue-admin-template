@@ -41,13 +41,15 @@
         </template>
       </el-table-column>
       <el-table-column label="详情" align="center" class-name="small-padding">
-        <template slot-scope="{row,$index}">
-          <el-button size="mini" type="success" @click="handleDetail(row,$index)">
-            查看
-          </el-button>
+        <template slot-scope="{row}">
+          <router-link :to="'/jobs/detail/'+row.jobID">
+            <el-button size="mini" type="success">
+              查看
+            </el-button>
+          </router-link>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding">
+      <el-table-column v-if="type==='todo'" label="操作" align="center" class-name="small-padding">
         <template slot-scope="{row,$index}">
           <el-button v-if="row.status==='auditing'" size="mini" type="primary" @click="handleResolve(row,$index)">
             通过
