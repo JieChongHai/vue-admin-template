@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import { fetchJobs, fetchJobDetail, resolve, reject } from '@/api/audit'
+import { fetchJobs, resolve, reject } from '@/api/audit'
 import Pagination from '@/components/Pagination'
 import { parseStringToTime } from '@/utils'
 
@@ -124,12 +124,6 @@ export default {
         this.total = total
         setTimeout(() => { this.listLoading = false })
       })
-    },
-    handleDetail(row, index) {
-      fetchJobDetail(row.jobID).then(response => {
-        this.detail = response
-      })
-      // todo
     },
     handleResolve(row, index) {
       this.tplProcess.jobID = row.jobID

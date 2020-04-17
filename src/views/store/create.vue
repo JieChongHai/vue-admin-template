@@ -76,9 +76,11 @@
 </template>
 
 <script>
-import { create, submitted } from '@/api/store'
+import { create } from '@/api/store'
 import { fetchList } from '@/api/merchant'
 import storeData from '@/store'
+import { submitted } from '@/api/audit'
+
 export default {
   data() {
     return {
