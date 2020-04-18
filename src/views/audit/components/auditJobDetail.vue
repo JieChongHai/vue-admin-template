@@ -235,6 +235,11 @@ export default {
       allowOperation: false
     }
   },
+  computed: {
+    isCheck() {
+      return this.currentOperators && this.currentOperators.includes(store.getters.name)
+    }
+  },
   created() {
     const jobID = this.$route.params && this.$route.params.id
     this.fetchData(jobID)
@@ -261,10 +266,6 @@ export default {
         reason: reason
       }
       reject(tplProcess)
-    },
-    isCheck() {
-      this.allowOperation = this.currentOperators && this.currentOperators.includes(store.getters.name)
-      return this.allowOperation
     }
   }
 }

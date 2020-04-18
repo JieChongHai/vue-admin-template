@@ -129,11 +129,13 @@ export default {
       this.tplProcess.jobID = row.jobID
       this.tplProcess.reason = '通过'
       resolve(this.tplProcess)
+      this.getList()
     },
     handleReject(row, index) {
       this.tplProcess.jobID = row.jobID
       this.tplProcess.reason = '拒绝'
       reject(this.tplProcess)
+      this.getList()
     }
   }
 }

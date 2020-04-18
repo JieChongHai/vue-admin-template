@@ -62,6 +62,7 @@ export function report(query) {
   return request({
     url: '/attenc/camel/stores/report',
     method: 'get',
-    params: query
+    params: query,
+    responseType: 'blob'
   })
 }

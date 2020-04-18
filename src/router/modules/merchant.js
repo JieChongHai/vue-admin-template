@@ -15,19 +15,13 @@ export const merchantRouter = {
       path: 'create',
       component: () => import('@/views/merchant/create'),
       name: 'create',
-      meta: { title: 'Merchant Create', roles: [1, 2, 3] }
+      meta: { title: 'Merchant Create', roles: [1, 2] }
     },
     {
       path: 'update',
-      component: () => import('@/views/error-page/401'),
+      component: () => import('@/views/merchant/update'),
       name: 'update',
       meta: { title: 'Merchant Update', roles: [1, 2, 3] }
-    },
-    {
-      path: 'remove',
-      component: () => import('@/views/error-page/401'),
-      name: 'remove',
-      meta: { title: 'Merchant remove', roles: [1, 2, 3] }
     },
     {
       path: 'detail',
@@ -53,7 +47,7 @@ export const merchantsRouter = {
     {
       hidden: true,
       path: 'update/:intMerCode',
-      component: () => import('@/views/error-page/401'),
+      component: () => import('@/views/merchant/update'),
       name: 'update',
       meta: { title: 'Merchant Update', roles: [1, 2], activeMenu: '/merchants/list' }
     },

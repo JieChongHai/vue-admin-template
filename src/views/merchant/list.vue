@@ -41,14 +41,20 @@
       <el-table-column label="操作" align="center" class-name="small-padding">
         <template slot-scope="{row,$index}">
           <el-button v-if="row.common.status==='normal'" size="mini" type="success" @click="handleDetail(row,$index)">
-            详情
+            详 情
           </el-button>
           <el-button v-if="row.common.status==='normal'" size="mini" type="primary" @click="handleEdit(row,$index)">
-            编辑
+            编 辑
           </el-button>
-          <el-button v-if="row.common.status==='normal'" size="mini" type="danger" @click="handleDelete(row,$index)">
-            删除
-          </el-button>
+          <el-button v-if="row.common.status==='normal'" slot="reference" size="mini" type="danger" @click="isConfirm=true">删 除</el-button>
+          <el-dialog :visible.sync="isConfirm" title="确认删除商户？" width="30%" center>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="isConfirm = false">取 消</el-button>
+              <el-button size="mini" type="danger" @click="handleDelete(row,$index)">
+                删除
+              </el-button>
+            </span>
+          </el-dialog>
         </template>
       </el-table-column>
     </el-table>
@@ -89,7 +95,8 @@ export default {
         startTime: undefined,
         endTime: undefined,
         status: undefined
-      }
+      },
+      isConfirm: false
     }
   },
   created() {
@@ -119,15 +126,17 @@ export default {
       this.$router.push({ path: `/merchants/update/${row.common.intMerCode}` })
     },
     handleDelete(row, index) {
-      remove(row.common.intMerCode).then(res => {
-        this.$notify({
-          title: '成功',
-          message: '删除商户成功',
-          type: 'success',
-          duration: 2000
+      if (this.isConfirm) {
+        remove(row.common.intMerCode).then(res => {
+          this.$notify({
+            title: '成功',
+            message: '删除商户成功',
+            type: 'success',
+            duration: 2000
+          })
+          this.getList()
         })
-        this.getList()
-      })
+      }
     },
     handleFilter() {
       this.listQuery.page = 1

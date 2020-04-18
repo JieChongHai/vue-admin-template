@@ -139,7 +139,12 @@ export default {
       if (this.token !== '') {
         submitted(this.token)
       }
-      this.$message('submit!')
+      this.$message({
+        message: 'submit!',
+        type: 'success'
+      })
+      this.store = {}
+      this.users = []
     },
     onCancel() {
       this.$message({

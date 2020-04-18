@@ -80,10 +80,16 @@ import Pagination from '@/components/Pagination'
 import { parseStringToTime } from '@/utils'
 
 export default {
-  name: 'Merchants',
+  name: 'UserList',
   components: { Pagination },
   filters: {
     parseStringToTime
+  },
+  props: {
+    intMerCode: {
+      type: String,
+      default: ''
+    }
   },
   data() {
     return {
@@ -107,6 +113,9 @@ export default {
     }
   },
   created() {
+    if (this.intMerCode) {
+      this.listQuery.intMerCode = this.intMerCode
+    }
     this.getList()
   },
   methods: {
