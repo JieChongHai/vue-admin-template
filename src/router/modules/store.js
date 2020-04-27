@@ -15,19 +15,13 @@ export const storeRouter = {
       path: 'create',
       component: () => import('@/views/store/create'),
       name: 'create',
-      meta: { title: 'Store Create', roles: [1, 2, 3, 4] }
+      meta: { title: 'Store Create', roles: [1, 2, 3] }
     },
     {
       path: 'update',
       component: () => import('@/views/error-page/401'),
       name: 'update',
       meta: { title: 'Store Update', roles: [1, 2, 3, 4] }
-    },
-    {
-      path: 'remove',
-      component: () => import('@/views/error-page/401'),
-      name: 'remove',
-      meta: { title: 'Store remove', roles: [1, 2, 3, 4] }
     },
     {
       path: 'detail',
@@ -55,21 +49,21 @@ export const storesRouter = {
       path: 'update',
       component: () => import('@/views/error-page/401'),
       name: 'update',
-      meta: { title: 'Store Update', roles: [1, 2, 3, 4] }
+      meta: { title: 'Store Update', roles: [1, 2, 3] }
     },
     {
       hidden: true,
       path: 'remove',
       component: () => import('@/views/error-page/401'),
       name: 'remove',
-      meta: { title: 'Store remove', roles: [1, 2, 3, 4] }
+      meta: { title: 'Store remove', roles: [1, 2, 3] }
     },
     {
       hidden: true,
       path: 'detail',
       component: () => import('@/views/error-page/401'),
       name: 'detail',
-      meta: { title: 'Store Detail', roles: [1, 2, 3, 4] }
+      meta: { title: 'Store Detail', roles: [1, 2, 3] }
     }
   ]
 }

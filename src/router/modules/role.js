@@ -21,13 +21,13 @@ export const roleRouter = {
       path: 'update',
       component: () => import('@/views/error-page/401'),
       name: 'update',
-      meta: { title: 'Role Update', roles: [1, 2, 3, 4] }
+      meta: { title: 'Role Update', roles: [1, 2, 3] }
     },
     {
       path: 'detail',
       component: () => import('@/views/error-page/401'),
       name: 'detail',
-      meta: { title: 'Role Detail', roles: [1, 2, 3, 4] }
+      meta: { title: 'Role Detail', roles: [1, 2, 3] }
     }
   ]
 }
@@ -59,14 +59,14 @@ export const rolesRouter = {
       path: 'update',
       component: () => import('@/views/error-page/401'),
       name: 'update',
-      meta: { title: 'Role Update', roles: [1, 2, 3, 4] }
+      meta: { title: 'Role Update', roles: [1, 2, 3] }
     },
     {
       hidden: true,
       path: 'detail',
       component: () => import('@/views/error-page/401'),
       name: 'detail',
-      meta: { title: 'Role Detail', roles: [1, 2, 3, 4] }
+      meta: { title: 'Role Detail', roles: [1, 2, 3] }
     }
   ]
 }

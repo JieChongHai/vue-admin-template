@@ -78,8 +78,8 @@ export const constantRoutes = [
       component: () => import('@/views/dashboard/index'),
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
-  },
-
+  }
+/*
   {
     path: '/example',
     component: Layout,
@@ -114,6 +114,7 @@ export const constantRoutes = [
       }
     ]
   }
+  */
 ]
 
 /**
@@ -121,7 +122,7 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
-  {
+/*  {
     path: '/nested',
     component: Layout,
     redirect: '/nested/menu1',
@@ -178,6 +179,7 @@ export const asyncRoutes = [
       }
     ]
   },
+  */
   merchantRouter,
   merchantsRouter,
   storeRouter,

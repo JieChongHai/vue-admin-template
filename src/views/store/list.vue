@@ -129,7 +129,7 @@ export default {
       this.$router.push({ path: '/stores/update', params: { intMerCode: row.common.intMerCode }})
     },
     handleDelete(row, index) {
-      remove(row.common.intMerCode).then(res => {
+      remove(row.common.intStoreCode).then(res => {
         this.$notify({
           title: '成功',
           message: '删除门店成功',
