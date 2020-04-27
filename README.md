@@ -15,6 +15,9 @@ npm install
 
 # develop
 npm run dev
+
+# 配置后端本地代理
+vue.config.js 文件中, 将proxy.target改成'localhosta:7010'
 ```
 
 This will automatically open http://localhost:9528
