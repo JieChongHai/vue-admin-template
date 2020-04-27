@@ -137,9 +137,15 @@
             <el-button size="mini" type="primary" @click="handleEdit(row,$index)">
               编辑
             </el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(row,$index)">
-              删除
-            </el-button>
+            <el-button slot="reference" size="mini" type="danger" @click="isConfirm=true">删 除</el-button>
+            <el-dialog :visible.sync="isConfirm" title="确认删除商户？" width="30%" center>
+              <span slot="footer" class="dialog-footer">
+                <el-button @click="isConfirm = false">取 消</el-button>
+                <el-button size="mini" type="danger" @click="handleDelete(row,$index)">
+                  删 除
+                </el-button>
+              </span>
+            </el-dialog>
           </template>
         </el-table-column>
       </el-table>
@@ -159,7 +165,7 @@
 import merchantImg from '@/assets/merchant/merchant.png'
 import store from '@/store'
 import { fetchDetail, report } from '@/api/merchant'
-import { fetchList, remove, detail } from '@/api/user'
+import { fetchList, remove } from '@/api/user'
 import Pagination from '@/components/Pagination'
 import { parseStringToTime } from '@/utils'
 
@@ -199,7 +205,8 @@ export default {
         page: 1,
         size: 2,
         intMerCode: undefined
-      }
+      },
+      isConfirm: false
     }
   },
   created() {
@@ -273,14 +280,12 @@ export default {
       })
     },
     handleDetail(row, index) {
-      detail(row.username).then(res => {
-        this.user = res
-      })
+      this.$router.push({ path: `/merchant/user/${row.username}` })
     },
     handleEdit(row, index) {
       this.$notify({
         title: '成功',
-        message: '???',
+        message: '待开发',
         type: 'success',
         duration: 2000
       })

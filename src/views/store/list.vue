@@ -54,9 +54,15 @@
           <el-button v-if="row.common.status==='normal'" size="mini" type="primary" @click="handleEdit(row,$index)">
             编辑
           </el-button>
-          <el-button v-if="row.common.status==='normal'" size="mini" type="danger" @click="handleDelete(row,$index)">
-            删除
-          </el-button>
+          <el-button v-if="row.common.status==='normal'" slot="reference" size="mini" type="danger" @click="isConfirm=true">删 除</el-button>
+          <el-dialog :visible.sync="isConfirm" title="确认删除商户？" width="30%" center>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="isConfirm = false">取 消</el-button>
+              <el-button size="mini" type="danger" @click="handleDelete(row,$index)">
+                删 除
+              </el-button>
+            </span>
+          </el-dialog>
         </template>
       </el-table-column>
     </el-table>
@@ -100,7 +106,8 @@ export default {
         startTime: undefined,
         endTime: undefined,
         status: undefined
-      }
+      },
+      isConfirm: false
     }
   },
   created() {
@@ -123,10 +130,10 @@ export default {
       return 'yellow-row'
     },
     handleDetail(row, index) {
-      this.$router.push({ path: `/stores/detail/${row.common.intMerCode}` })
+      this.$router.push({ path: `/stores/detail/${row.common.intStoreCode}` })
     },
     handleEdit(row, $index) {
-      this.$router.push({ path: '/stores/update', params: { intMerCode: row.common.intMerCode }})
+      this.$router.push({ path: '/stores/update', params: { intStoreCode: row.common.intStoreCode }})
     },
     handleDelete(row, index) {
       remove(row.common.intStoreCode).then(res => {

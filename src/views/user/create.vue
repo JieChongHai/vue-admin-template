@@ -79,7 +79,11 @@ export default {
       }
       this.user.roleId = parseInt(this.user.roleId)
       create(this.user)
-      this.$message('submit!')
+      this.$message({
+        message: 'success',
+        type: 'success'
+      })
+      this.user = {}
     },
     onCancel() {
       this.$message({

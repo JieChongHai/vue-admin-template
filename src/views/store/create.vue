@@ -138,6 +138,7 @@ export default {
       this.token = await create(data)
       if (this.token !== '') {
         submitted(this.token)
+        this.$router.push({ path: `/jobs/index` })
       }
       this.$message({
         message: 'submit!',

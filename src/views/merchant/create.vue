@@ -144,7 +144,13 @@ export default {
         users: this.users
       }
       create(data)
-      this.$message('submit!')
+      this.$message({
+        message: 'success',
+        type: 'success'
+      })
+      this.merchant = {}
+      this.users = []
+      this.user = {}
     },
     onCancel() {
       this.$message({

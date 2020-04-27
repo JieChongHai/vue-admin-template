@@ -27,7 +27,14 @@ export const merchantRouter = {
       path: 'detail',
       component: () => import('@/views/merchant/detail'),
       name: 'detail',
-      meta: { title: 'Merchant Detail', roles: [1, 2, 3] }
+      meta: { title: 'Merchant Detail', roles: [1, 2, 3] },
+    },
+    {
+      hidden: true,
+      path: 'user/:username',
+      component: () => import('@/views/user/detail'),
+      name: 'detail',
+      meta: { title: 'User Detail', roles: [1, 2, 3] }
     }
   ]
 }

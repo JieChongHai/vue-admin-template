@@ -25,7 +25,7 @@ export const storeRouter = {
     },
     {
       path: 'detail',
-      component: () => import('@/views/error-page/401'),
+      component: () => import('@/views/store/detail'),
       name: 'detail',
       meta: { title: 'Store Detail', roles: [1, 2, 3, 4] }
     }
@@ -60,8 +60,8 @@ export const storesRouter = {
     },
     {
       hidden: true,
-      path: 'detail',
-      component: () => import('@/views/error-page/401'),
+      path: 'detail/:intStoreCode',
+      component: () => import('@/views/store/detail'),
       name: 'detail',
       meta: { title: 'Store Detail', roles: [1, 2, 3] }
     }

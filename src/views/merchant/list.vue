@@ -51,7 +51,7 @@
             <span slot="footer" class="dialog-footer">
               <el-button @click="isConfirm = false">取 消</el-button>
               <el-button size="mini" type="danger" @click="handleDelete(row,$index)">
-                删除
+                删 除
               </el-button>
             </span>
           </el-dialog>
