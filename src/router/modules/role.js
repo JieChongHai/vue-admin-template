@@ -44,7 +44,7 @@ export const rolesRouter = {
   children: [
     {
       path: 'list',
-      component: () => import('@/views/error-page/401'),
+      component: () => import('@/views/role/list'),
       name: 'List',
       meta: { title: 'Role List', roles: [1, 2, 3] }
     },
